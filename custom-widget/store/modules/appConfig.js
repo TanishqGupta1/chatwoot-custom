@@ -32,10 +32,10 @@ const state = {
   enableElevenLabs: true,
   elevenLabsConfig: {
     apiKey: '',
-
-    agentId: 'agent_6601kc1fqeecfc88s7d52jde0syq',
-    voiceId: '',
-    agentName: 'AI Assistant',
+    // Agent ID can be set via VITE_ELEVENLABS_AGENT_ID env var or defaults to this value
+    agentId: import.meta.env.VITE_ELEVENLABS_AGENT_ID || 'agent_6601kc1fqeecfc88s7d52jde0syq',
+    voiceId: import.meta.env.VITE_ELEVENLABS_VOICE_ID || '',
+    agentName: import.meta.env.VITE_ELEVENLABS_AGENT_NAME || 'AI Assistant',
   },
 };
 

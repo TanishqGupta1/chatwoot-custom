@@ -21,7 +21,7 @@ Added a voice call button inside the Chatwoot chat widget that connects to Eleve
 Agent ID is set in `store/modules/appConfig.js`:
 ```javascript
 elevenLabsConfig: {
-  agentId: 'agent_0901kdr5aqkheq6b8r8qxr2yeevm',
+  agentId: 'agent_6601kc1fqeecfc88s7d52jde0syq',
   agentName: 'AI Assistant',
 }
 ```
