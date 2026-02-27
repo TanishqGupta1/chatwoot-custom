@@ -32,7 +32,8 @@ const state = {
   enableElevenLabs: true,
   elevenLabsConfig: {
     apiKey: '',
-    agentId: 'agent_6401kfg3at0xfhqbbdzzwhzf4h5z',
+
+    agentId: 'agent_6601kc1fqeecfc88s7d52jde0syq',
     voiceId: '',
     agentName: 'AI Assistant',
   },

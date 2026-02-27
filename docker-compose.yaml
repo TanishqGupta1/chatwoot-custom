@@ -7,14 +7,14 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: chatwoot
-      POSTGRES_USER: postgres
+      POSTGRES_DB: chatwoot_prod
+      POSTGRES_USER: chatwoot_prod
       POSTGRES_PASSWORD: password
       POSTGRES_INITDB_ARGS: '--encoding=UTF8 --locale=C'
     networks:
       - chatwoot-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U chatwoot_prod"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -34,10 +34,7 @@ services:
       retries: 5
 
   rails:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: chatwoot-with-voice:latest
+    image: ghcr.io/tanishqgupta1/chatwoot-custom:latest
     restart: unless-stopped
     depends_on:
       postgres:
@@ -53,10 +50,19 @@ services:
     environment:
       - DB_POOL=${RAILS_MAX_THREADS:-5}
       - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=chatwoot_prod
+      - POSTGRES_DATABASE=chatwoot_prod
     networks:
       - chatwoot-network
     command: >
       sh -c "
+      export POSTGRES_HOST=postgres;
+      export POSTGRES_PASSWORD=password;
+      export POSTGRES_USER=chatwoot_prod;
+      export POSTGRES_DATABASE=chatwoot_prod;
+      export RAILS_ENV=production;
       echo 'Waiting for database...' &&
       until bundle exec rails db:version &>/dev/null; do
         echo 'Database not ready yet, waiting...' &&
@@ -69,7 +75,7 @@ services:
       "
 
   sidekiq:
-    image: chatwoot-with-voice:latest
+    image: ghcr.io/tanishqgupta1/chatwoot-custom:latest
     restart: unless-stopped
     depends_on:
       - postgres
