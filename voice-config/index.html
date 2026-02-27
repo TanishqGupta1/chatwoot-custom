@@ -82,6 +82,7 @@
   <div class="toast" id="toast"></div>
 
   <script>
+    const API_BASE = 'http://localhost:8086';
     let agentMap = {};
     let inboxes = [];
 
@@ -101,7 +102,7 @@
 
       try {
         // Fetch current agent config
-        const configResp = await fetch('/voice-config/agents.json?t=' + Date.now());
+        const configResp = await fetch(API_BASE + '/agents.json?t=' + Date.now());
         if (configResp.ok) agentMap = await configResp.json();
 
         // Fetch inboxes from Chatwoot API
@@ -211,7 +212,7 @@
       document.getElementById('save-btn').textContent = 'Saving...';
 
       try {
-        const resp = await fetch('/voice-config/save', {
+        const resp = await fetch(API_BASE + '/save', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'X-API-Token': token },
           body: JSON.stringify(config)
