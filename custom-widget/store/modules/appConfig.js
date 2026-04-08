@@ -85,6 +85,8 @@ export const actions = {
       enableFileUpload = true,
       enableEmojiPicker = true,
       enableEndConversation = true,
+      enableElevenLabsVoice = true,
+      elevenLabsAgentId = '',
     }
   ) {
     commit(SET_WIDGET_APP_CONFIG, {
@@ -101,6 +103,8 @@ export const actions = {
       enableFileUpload,
       enableEmojiPicker,
       enableEndConversation,
+      enableElevenLabsVoice,
+      elevenLabsAgentId,
     });
   },
   toggleWidgetOpen({ commit }, isWidgetOpen) {
@@ -139,6 +143,16 @@ export const mutations = {
     $state.enableFileUpload = data.enableFileUpload;
     $state.enableEmojiPicker = data.enableEmojiPicker;
     $state.enableEndConversation = data.enableEndConversation;
+
+    if (data.enableElevenLabsVoice !== undefined) {
+      $state.enableElevenLabs = data.enableElevenLabsVoice;
+    }
+    if (data.elevenLabsAgentId) {
+      $state.elevenLabsConfig = {
+        ...$state.elevenLabsConfig,
+        agentId: data.elevenLabsAgentId,
+      };
+    }
   },
   [TOGGLE_WIDGET_OPEN]($state, isWidgetOpen) {
     $state.isWidgetOpen = isWidgetOpen;

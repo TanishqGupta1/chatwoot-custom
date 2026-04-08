@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chatwoot Widget Demo</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #f8fafc;
+      color: #0f172a;
+    }
+    h1 {
+      margin-top: 0;
+    }
+    .card {
+      max-width: 640px;
+      padding: 1.5rem;
+      border-radius: 12px;
+      background: white;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+    }
+    code {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 0.15rem 0.35rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Chatwoot Widget</h1>
+    <p>This page mounts the Chatwoot web widget. Replace the placeholders below with your deployment details, then open this file in a browser (or serve it via a simple HTTP server).</p>
+    <ul>
+      <li><strong>baseUrl</strong>: URL of your Chatwoot instance (e.g. <code>https://app.chatwoot.com</code> or <code>https://yourhost</code>)</li>
+      <li><strong>websiteToken</strong>: The token from the Inbox &gt; Installation &gt; Website channel</li>
+    </ul>
+    <p>The script loads asynchronously; the widget appears as soon as it finishes.</p>
+  </div>
+
+  <script>
+    // --- REQUIRED: replace these values ---
+    const chatwootBaseUrl = 'http://localhost:3000';          // <- your Chatwoot host (protocol + port)
+    const chatwootWebsiteToken = 'CyxeEN8Y6BSxzDM1hxnPCitX';   // <- your Website channel token
+
+    // Optional widget options (position, dark mode, locale, etc.)
+    window.chatwootSettings = {
+      locale: 'en',
+      position: 'right',  // 'right' | 'left'
+      darkMode: 'auto',   // 'light' | 'dark' | 'auto'
+    };
+
+    // Load SDK then explicitly run the widget
+    (function(d, t) {
+      const g = d.createElement(t);
+      const s = d.getElementsByTagName(t)[0];
+      g.src = `${chatwootBaseUrl}/packs/js/sdk.js`;
+      g.defer = true;
+      g.async = true;
+      g.onload = function() {
+        if (window.chatwootSDK) {
+          window.chatwootSDK.run({
+            websiteToken: chatwootWebsiteToken,
+            baseUrl: chatwootBaseUrl,
+          });
+        } else {
+          console.error('Chatwoot SDK failed to load.');
+        }
+      };
+      s.parentNode.insertBefore(g, s);
+    })(document, 'script');
+  </script>
+</body>
+</html>
