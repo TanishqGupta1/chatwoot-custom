@@ -1,4 +1,4 @@
-FROM chatwoot/chatwoot:latest
+FROM ghcr.io/tanishqgupta1/chatwoot-custom:latest
 
 # Build arguments for ElevenLabs configuration
 ARG VITE_ELEVENLABS_AGENT_ID=agent_6601kc1fqeecfc88s7d52jde0syq
@@ -43,6 +43,7 @@ COPY custom-widget/i18n/en.json /app/app/javascript/widget/i18n/en.json
 
 # Build Vite assets so /public/vite contains the latest JS/CSS.
 # The upstream base image may not ship with postcss-import, so add it.
+RUN npm install -g pnpm
 RUN cd /app && pnpm add -D postcss-import
 RUN cd /app && NODE_OPTIONS=--max-old-space-size=4096 node /app/node_modules/vite/bin/vite.js build
 
