@@ -34,7 +34,7 @@ services:
       retries: 5
 
   rails:
-    image: ghcr.io/tanishqgupta1/chatwoot-custom:latest
+    image: 690816807846.dkr.ecr.us-west-2.amazonaws.com/prod-chatwoot:v1.0.1
     pull_policy: always
     restart: unless-stopped
     depends_on:
@@ -76,7 +76,7 @@ services:
       "
 
   sidekiq:
-    image: ghcr.io/tanishqgupta1/chatwoot-custom:latest
+    image: 690816807846.dkr.ecr.us-west-2.amazonaws.com/prod-chatwoot:v1.0.1
     pull_policy: always
     restart: unless-stopped
     depends_on:
